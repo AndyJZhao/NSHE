@@ -1,7 +1,3 @@
-# coding:utf-8
-# author: Andy Zhao
-# create date: 2018/8/6
-
 import argparse
 import warnings
 from models import NSHE
@@ -38,13 +34,13 @@ def cal_cla_loss(predict, ns_label):
     return BCE_loss(predict, ns_label)
 
 
-def evaluate(node_emb,t_info):
+def evaluate(node_emb, t_info):
     # Evaluation
     # Evaluate with random seed
     exp = Evaluation(hp.dataset)
     if hp.dataset == 'imdb':
         res = exp.evaluate_imdb(node_emb[:t_info['m']['cnt']])
-    elif hp.dataset== 'dblp':
+    elif hp.dataset == 'dblp':
         res = exp.evaluate_dblp(node_emb)
     elif hp.dataset == 'acm':
         res = exp.evaluate_acm(node_emb)
@@ -52,7 +48,6 @@ def evaluate(node_emb,t_info):
 
 
 def run(model, g, optimizer):
-    epoch_res_list = []
     for epoch in range(hp.epochs):
         epoch_start_time = time.time()
         g.get_epoch_samples(epoch, hp)
@@ -68,7 +63,7 @@ def run(model, g, optimizer):
                       'pairwise_loss': pairwise_loss.item(),
                       'cla_loss': cla_loss.item(),
                       'time': time.time() - epoch_start_time}
-        print_dict(epoch_dict,'\n')
+        print_dict(epoch_dict, '\n')
         optimizer.step()
     return node_emb
 
@@ -91,7 +86,7 @@ def main(hp):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='GCN')
-    parser.add_argument("--dataset", type=str, default='imdb', help="dataset to train")
+    parser.add_argument("--dataset", type=str, default='dblp', help="dataset to train")
     parser.add_argument("--task", type=str, default='cla', help="task to train")
     args = parser.parse_args()
     hp = Hyperparams(args.dataset, args.task)

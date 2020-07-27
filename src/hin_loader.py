@@ -23,6 +23,7 @@ class HIN(object):
         self.ns_instances, self.ns_label = None, None
         self.node_types = None
         self.optimizer = None
+        self.ns_neg_rate = hp.ns_neg_rate
         self.seed_set = []
         #
         np.random.seed(self.seed)
