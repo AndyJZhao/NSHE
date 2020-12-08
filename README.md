@@ -9,9 +9,8 @@ Pytorch >= 1.0
 
 # Others
 Please note that,
-- The sampling process is extremely time consuming.
+- The sampling process in each epoch is extremely time consuming, the sampled results are saved as temp files for different seeds to skip sampling and load the temp files instead.
 - We repeated the experiments with 10 different seeds and reported the mean result.
-- I will optimize the code soon (hopefully before Aug 7th) for better readability and robustness.
 
 # BibTex
 If you find our work useful, please cite our paper:
